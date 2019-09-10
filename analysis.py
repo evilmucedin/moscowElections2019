@@ -16,6 +16,7 @@ def main():
             count1 = 0
             countSum = 0
             index = 0
+            #print(dfStation[1])
             for _, row in dfStation[1].iterrows():
                 c = float(row['Count'])
                 if index == 0:
@@ -26,7 +27,7 @@ def main():
                 index += 1
                 s += c
             # print(countSum, count0, count1)
-            rem = float(countSum - count0 - count1) / countSum / (index - 2)
+            rem = float(countSum - count0 - count1) / countSum
             print(rem)
             rems.append(rem)
         st = (y, numpy.mean(rems), numpy.std(rems), s)
