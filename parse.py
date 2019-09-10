@@ -34,7 +34,7 @@ def dequoteV(v):
     return res
 
 unitedRussiaCandidates = set()
-
+candidate2party = {}
 def parseUnitedRussia(filename, markers, antiMarkers):
     b = open(filename, 'rb').read()
     s = b.decode('cp1251')
@@ -45,6 +45,7 @@ def parseUnitedRussia(filename, markers, antiMarkers):
             continue
         parts = dequoteV(detagV(re.split("\<\/td\>", line)))
         unitedRussia = False
+        candidate2party[parts[1]] = parts[3].replace('"', '')
         for m in markers:
             if m in parts[3]:
                 unitedRussia = True
@@ -66,7 +67,7 @@ def main():
     YEARS = ["2014", "2019"]
     for y in YEARS:
         with open("data/%s.csv" % y, "w") as fOut:
-            print("Station,FullName,Count,UnitedRussia", file=fOut)
+            print("Station,FullName,Count,UnitedRussia,Party", file=fOut)
             for index in range(1, 46):
                 with open("data/%s/%d.html" % (y, index)) as f:
                     cand = []
@@ -77,7 +78,7 @@ def main():
                         if line.find('Число') >= 0:
                             continue
                         parts = dequoteV(detagV(re.split("\<\/td\>", line)))
-                        print("%d,%s,%s,%d" % (index, parts[1], parts[2], parts[1] in unitedRussiaCandidates), file=fOut)
+                        print("%d,%s,%s,%d,%s" % (index, parts[1], parts[2], parts[1] in unitedRussiaCandidates, candidate2party[parts[1]]), file=fOut)
 
 if __name__ == "__main__":
     main()

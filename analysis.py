@@ -26,6 +26,8 @@ def main():
                 index += 1
                 s += c
             # print(countSum, count0, count1)
+            if index <= 2:
+                print(dfStation)
             rem = float(countSum - count0 - count1) / countSum / (index - 2)
             print(rem)
             rems.append(rem)
