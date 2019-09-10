@@ -26,7 +26,7 @@ def main():
                 index += 1
                 s += c
             # print(countSum, count0, count1)
-            rem = float(countSum - count0 - count1) / countSum
+            rem = float(countSum - count0 - count1) / countSum / (index - 2)
             print(rem)
             rems.append(rem)
         st = (y, numpy.mean(rems), numpy.std(rems), s)
